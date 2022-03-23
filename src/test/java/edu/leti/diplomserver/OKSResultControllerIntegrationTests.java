@@ -21,16 +21,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @EnableWebMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class PatientDataControllerIntegrationTests {
+public class OKSResultControllerIntegrationTests {
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     @Order(1)
-    public void addPatientTest() throws Exception {
+    public void addOKSResultTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/patientData")
-                .content(asJsonString(PatientData.builder()
+                .post("/oksResult")
+                .content(asJsonString(OKSResult.builder()
                         .answer1(1).answer2(2).answer3(3)
                         .answer4(4).answer5(5).answer6(1)
                         .answer7(2).answer8(3).answer9(4)
@@ -42,8 +42,8 @@ public class PatientDataControllerIntegrationTests {
 
     @Test
     @Order(2)
-    public void deletePatientTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/patientData/{id}", 1))
+    public void deleteOKSResultTest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/oksResult/{id}", 1))
                 .andExpect(status().isOk());
     }
 

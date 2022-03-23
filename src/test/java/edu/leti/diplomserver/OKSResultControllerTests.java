@@ -23,27 +23,27 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @EnableWebMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class PatientDataControllerTests {
+public class OKSResultControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private PatientDataService patientDataService;
+    private OKSResultService oksResultService;
 
     @Test
     @Order(1)
-    public void addPatientTest() throws Exception {
-        PatientData patientData = PatientData.builder()
+    public void addOKSResultTest() throws Exception {
+        OKSResult oksResult = OKSResult.builder()
                 .answer1(1).answer2(2).answer3(3)
                 .answer4(4).answer5(5).answer6(1)
                 .answer7(2).answer8(3).answer9(4)
                 .answer10(5).answer11(1).answer12(2).build();
 
-        when(patientDataService.addPatientData(patientData)).thenReturn(patientData);
+        when(oksResultService.addOKSResult(oksResult)).thenReturn(oksResult);
 
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/patientData")
-                .content(asJsonString(patientData))
+                .post("/oksResult")
+                .content(asJsonString(oksResult))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -51,8 +51,8 @@ public class PatientDataControllerTests {
 
     @Test
     @Order(2)
-    public void deletePatientTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/patientData/{id}", 1))
+    public void deleteOKSResultTest() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/oksResult/{id}", 1))
                 .andExpect(status().isOk());
     }
 
