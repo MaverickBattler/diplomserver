@@ -18,27 +18,27 @@ public class OKSResult {
     @Column(name = "id")
     private Long id;
     @Column(name = "answer_1")
-    private Byte answer1;
+    private Short answer1;
     @Column(name = "answer_2")
-    private Byte answer2;
+    private Short answer2;
     @Column(name = "answer_3")
-    private Byte answer3;
+    private Short answer3;
     @Column(name = "answer_4")
-    private Byte answer4;
+    private Short answer4;
     @Column(name = "answer_5")
-    private Byte answer5;
+    private Short answer5;
     @Column(name = "answer_6")
-    private Byte answer6;
+    private Short answer6;
     @Column(name = "answer_7")
-    private Byte answer7;
+    private Short answer7;
     @Column(name = "answer_8")
-    private Byte answer8;
+    private Short answer8;
     @Column(name = "answer_9")
-    private Byte answer9;
+    private Short answer9;
     @Column(name = "answer_10")
-    private Byte answer10;
+    private Short answer10;
     @Column(name = "answer_11")
-    private Byte answer11;
+    private Short answer11;
     @Column(name = "answer_12")
-    private Byte answer12;
+    private Short answer12;
 }
