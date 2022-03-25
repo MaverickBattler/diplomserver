@@ -38,10 +38,12 @@ public class OKSResultServiceTests {
         for (int i = 0; i < N; i++) {
             OKSResult oksResult =
                     OKSResult.builder()
-                            .answer1(i + 1).answer2(i + 1).answer3(i + 1)
-                            .answer4(i + 1).answer5(i + 1).answer6(i + 1)
-                            .answer7(i + 1).answer8(i + 1).answer9(i + 1)
-                            .answer10(i + 1).answer11(i + 1).answer12(i + 1).build();
+                            .answer1((short) (i + 1)).answer2((short) (i + 1))
+                            .answer3((short) (i + 1)).answer4((short) (i + 1))
+                            .answer5((short) (i + 1)).answer6((short) (i + 1))
+                            .answer7((short) (i + 1)).answer8((short) (i + 1))
+                            .answer9((short) (i + 1)).answer10((short) (i + 1))
+                            .answer11((short) (i + 1)).answer12((short) (i + 1)).build();
             addedOKSResults.add(oksResult);
         }
     }
@@ -56,7 +58,7 @@ public class OKSResultServiceTests {
         assertEquals(N, gottenOKSResults.size());
         int i = 0;
         for (OKSResult oksResult : addedOKSResults) {
-            assertEquals(oksResult.getOksResultId(), gottenOKSResults.get(i++).getOksResultId());
+            assertEquals(oksResult.getId(), gottenOKSResults.get(i++).getId());
         }
     }
 
@@ -76,28 +78,28 @@ public class OKSResultServiceTests {
     public void addOKSResultTest() {
         OKSResult oksResult =
                 OKSResult.builder()
-                        .answer1(4).answer2(4).answer3(4)
-                        .answer4(4).answer5(4).answer6(4)
-                        .answer7(4).answer8(4).answer9(4)
-                        .answer10(4).answer11(4).answer12(4).build();
+                        .answer1((short) 4).answer2((short) 4).answer3((short) 4)
+                        .answer4((short) 4).answer5((short) 4).answer6((short) 4)
+                        .answer7((short) 4).answer8((short) 4).answer9((short) 4)
+                        .answer10((short) 4).answer11((short) 4).answer12((short) 4).build();
         addedOKSResults.add(oksResult);
 
         when(oksResultRepository.save(oksResult))
                 .thenReturn(addedOKSResults.get(addedOKSResults.size() - 1));
-        when(oksResultRepository.getById(oksResult.getOksResultId()))
+        when(oksResultRepository.getById(oksResult.getId()))
                 .thenReturn(addedOKSResults.get(addedOKSResults.size() - 1));
 
         oksResultService.addOKSResult(oksResult);
 
         assertEquals(oksResult, oksResultService
-                .getOKSResult(addedOKSResults.get(addedOKSResults.size() - 1).getOksResultId()));
+                .getOKSResult(addedOKSResults.get(addedOKSResults.size() - 1).getId()));
     }
 
     @Test
     @Order(4)
     public void removeOKSResultTest() {
         int index = 0;
-        oksResultService.removeOKSResult(addedOKSResults.get(index).getOksResultId());
+        oksResultService.removeOKSResult(addedOKSResults.get(index).getId());
         Mockito.verify(oksResultRepository).deleteById(any());
         addedOKSResults.remove(index);
     }

@@ -34,10 +34,10 @@ public class OKSResultControllerTests {
     @Order(1)
     public void addOKSResultTest() throws Exception {
         OKSResult oksResult = OKSResult.builder()
-                .answer1(1).answer2(2).answer3(3)
-                .answer4(4).answer5(5).answer6(1)
-                .answer7(2).answer8(3).answer9(4)
-                .answer10(5).answer11(1).answer12(2).build();
+                .answer1((short) 1).answer2((short) 2).answer3((short) 3)
+                .answer4((short) 4).answer5((short) 5).answer6((short) 1)
+                .answer7((short) 2).answer8((short) 3).answer9((short) 4)
+                .answer10((short) 5).answer11((short) 1).answer12((short) 2).build();
 
         when(oksResultService.addOKSResult(oksResult)).thenReturn(oksResult);
 

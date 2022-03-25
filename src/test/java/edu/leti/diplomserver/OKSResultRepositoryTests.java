@@ -20,18 +20,19 @@ public class OKSResultRepositoryTests {
 
     OKSResult oksResult1;
     OKSResult oksResult2;
+
     @BeforeAll
     public void setup() {
         oksResult1 = OKSResult.builder()
-                .answer1(1).answer2(1).answer3(1)
-                .answer4(1).answer5(1).answer6(1)
-                .answer7(1).answer8(1).answer9(1)
-                .answer10(1).answer11(1).answer12(1).build();
+                .answer1((short) 1).answer2((short) 1).answer3((short) 1)
+                .answer4((short) 1).answer5((short) 1).answer6((short) 1)
+                .answer7((short) 1).answer8((short) 1).answer9((short) 1)
+                .answer10((short) 1).answer11((short) 1).answer12((short) 1).build();
         oksResult2 = OKSResult.builder()
-                .answer1(2).answer2(2).answer3(2)
-                .answer4(2).answer5(2).answer6(2)
-                .answer7(2).answer8(2).answer9(2)
-                .answer10(2).answer11(2).answer12(2).build();
+                .answer1((short) 2).answer2((short) 2).answer3((short) 2)
+                .answer4((short) 2).answer5((short) 2).answer6((short) 2)
+                .answer7((short) 2).answer8((short) 2).answer9((short) 2)
+                .answer10((short) 2).answer11((short) 2).answer12((short) 2).build();
         oksResultRepository.save(oksResult1);
     }
 
@@ -44,8 +45,7 @@ public class OKSResultRepositoryTests {
     @Test
     @Order(2)
     @Transactional
-    public void getByIdTest()
-    {
+    public void getByIdTest() {
         System.out.println(oksResultRepository.findAll().size());
         assertEquals(oksResult1.getAnswer1(), oksResultRepository.getById(1L).getAnswer1());
     }
@@ -53,7 +53,7 @@ public class OKSResultRepositoryTests {
     @Test
     @Order(3)
     public void findAllTest() {
-        assertEquals(oksResultRepository.findAll().size(),2);
+        assertEquals(oksResultRepository.findAll().size(), 2);
         assertEquals(oksResult2.getAnswer1(), oksResultRepository.findAll().get(1).getAnswer1());
     }
 
@@ -63,6 +63,6 @@ public class OKSResultRepositoryTests {
     public void deleteByIdTest() {
         oksResultRepository.deleteById(1L);
         assertThrows(JpaObjectRetrievalFailureException.class, () -> oksResultRepository.getById(1L));
-        assertEquals(oksResultRepository.findAll().size(),1);
+        assertEquals(oksResultRepository.findAll().size(), 1);
     }
 }
