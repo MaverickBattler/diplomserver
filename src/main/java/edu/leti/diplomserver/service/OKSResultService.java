@@ -1,5 +1,7 @@
-package edu.leti.diplomserver;
+package edu.leti.diplomserver.service;
 
+import edu.leti.diplomserver.domain.OKSResult;
+import edu.leti.diplomserver.repository.OKSResultRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,5 +1,8 @@
 package edu.leti.diplomserver;
 
+import edu.leti.diplomserver.domain.OKSResult;
+import edu.leti.diplomserver.repository.OKSResultRepository;
+import edu.leti.diplomserver.service.OKSResultService;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;

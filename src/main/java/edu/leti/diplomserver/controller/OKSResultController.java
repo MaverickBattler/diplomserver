@@ -1,5 +1,7 @@
-package edu.leti.diplomserver;
+package edu.leti.diplomserver.controller;
 
+import edu.leti.diplomserver.service.OKSResultService;
+import edu.leti.diplomserver.domain.OKSResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

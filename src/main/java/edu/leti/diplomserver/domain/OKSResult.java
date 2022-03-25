@@ -1,4 +1,4 @@
-package edu.leti.diplomserver;
+package edu.leti.diplomserver.domain;
 
 import lombok.*;
 

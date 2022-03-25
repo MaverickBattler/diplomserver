@@ -1,6 +1,7 @@
 package edu.leti.diplomserver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.leti.diplomserver.domain.OKSResult;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
