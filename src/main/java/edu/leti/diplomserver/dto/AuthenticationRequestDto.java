@@ -9,5 +9,5 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class AuthenticationRequestDto {
-    private String medicalCardNumber;
+    private String medicalCardId;
 }

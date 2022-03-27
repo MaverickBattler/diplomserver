@@ -15,8 +15,8 @@ import javax.persistence.Id;
 @Entity
 public class Patient {
     @Id
-    @Column(name = "medical_card_number")
-    private String medicalCardNumber;
+    @Column(name = "medical_card_id")
+    private String medicalCardId;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
