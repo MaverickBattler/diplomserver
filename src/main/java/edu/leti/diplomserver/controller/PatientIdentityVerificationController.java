@@ -1,22 +1,29 @@
 package edu.leti.diplomserver.controller;
 
 import edu.leti.diplomserver.service.PatientIdentityVerificationService;
-import edu.leti.diplomserver.dto.AuthenticationRequestDto;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import edu.leti.diplomserver.dto.VerificationRequestDto;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 public class PatientIdentityVerificationController {
     private final PatientIdentityVerificationService patientIdentityVerificationService;
+
     //Constructor Dependency Injection
-    public PatientIdentityVerificationController (
+    public PatientIdentityVerificationController(
             PatientIdentityVerificationService patientIdentityVerificationService) {
         this.patientIdentityVerificationService = patientIdentityVerificationService;
     }
 
-    @PostMapping("/auth")
-    public String authenticate(@RequestBody AuthenticationRequestDto authenticationRequestDto) {
-        return patientIdentityVerificationService.authenticate(authenticationRequestDto);
+    @PostMapping("/verify")
+    @ResponseBody
+    public String verificationRequest(@RequestBody VerificationRequestDto verificationRequestDto) {
+        return patientIdentityVerificationService.verificationRequest(verificationRequestDto);
+    }
+
+    @GetMapping("/verify-email")
+    public String verifyEmail(@RequestParam String code) {
+        patientIdentityVerificationService.verifyEmail(code);
+        return "verification-page";
     }
 }

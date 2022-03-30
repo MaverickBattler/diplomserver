@@ -8,6 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class AuthenticationRequestDto {
+public class VerificationRequestDto {
     private String medicalCardId;
 }

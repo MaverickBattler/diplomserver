@@ -13,6 +13,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "oks_results")
 public class OKSResult {
+    //добавить patient_id
+    //настроить foreign_keys
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
