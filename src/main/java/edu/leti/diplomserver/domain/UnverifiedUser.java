@@ -14,13 +14,13 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "email_verification_codes")
-public class EmailVerificationCode {
-    @Id
+@Table(name = "unverified_users")
+public class UnverifiedUser {
     @Column(name = "medical_card_id")
     String medicalCardId;
+    @Id
     @Column(name = "code", unique = true)
     String code;
-    @Column(name = "verified")
-    Boolean verified;
+    @Column(name = "password")
+    String password;
 }

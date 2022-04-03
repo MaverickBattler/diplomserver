@@ -35,6 +35,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-log4j2:2.2.6.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-mail:2.6.5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -55,6 +56,9 @@ dependencies {
 
     //Thymeleaf
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.6.5'
+
+    //Jwt
+    implementation 'io.jsonwebtoken:jjwt:0.2'
 
 }
 

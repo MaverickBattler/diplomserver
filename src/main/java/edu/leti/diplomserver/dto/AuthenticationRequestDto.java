@@ -2,12 +2,13 @@ package edu.leti.diplomserver.dto;
 
 import lombok.*;
 
+@Builder
 @Setter
 @Getter
-@Builder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class VerificationRequestDto {
-    private String medicalCardId;
+public class AuthenticationRequestDto {
+    String email;
+    String password;
 }

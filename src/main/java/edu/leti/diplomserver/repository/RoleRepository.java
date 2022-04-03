@@ -1,10 +1,10 @@
 package edu.leti.diplomserver.repository;
 
-import edu.leti.diplomserver.domain.User;
+import edu.leti.diplomserver.domain.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, String> {
-    User findByEmail(String email);
+public interface RoleRepository extends JpaRepository<Role, String> {
+    Role findByName(String name);
 }

@@ -1,11 +1,12 @@
 package edu.leti.diplomserver.domain;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -18,10 +19,9 @@ import javax.persistence.Table;
 public class User {
     @Id
     @Column(name = "medical_card_id")
-    //настроить foreign keys
     private String medicalCardId;
-    @Column(name = "username")
-    private String username;
+    @Column(name = "email", unique = true)
+    private String email;
     @Column(name = "password")
     private String password;
     @Column(name = "first_name")
@@ -30,10 +30,20 @@ public class User {
     private String lastName;
     @Column(name = "father_name")
     private String fatherName;
-    @Column(name = "email")
-    private String email;
     @Column(name = "phone_number")
     private String phoneNumber;
-    @Column(name = "operation_name")
-    private String operationName;
+    @CreatedDate
+    @Column(name = "created")
+    private Date created;
+    @LastModifiedDate
+    @Column(name = "updated")
+    private Date updated;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "medical_card_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+
+    private List<Role> roles;
 }
