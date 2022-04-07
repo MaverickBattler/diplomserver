@@ -1,31 +1,34 @@
 package edu.leti.diplomserver.service;
 
-import edu.leti.diplomserver.domain.UnverifiedUser;
-import edu.leti.diplomserver.domain.Patient;
-import edu.leti.diplomserver.domain.User;
+import edu.leti.diplomserver.domain.*;
 import edu.leti.diplomserver.dto.IdVerificationRequestDto;
+import edu.leti.diplomserver.repository.RoleRepository;
 import edu.leti.diplomserver.repository.UnverifiedUsersRepository;
 import edu.leti.diplomserver.repository.MedicalInstitutionDatabaseImitation;
 import edu.leti.diplomserver.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class VerificationService {
 
     private final UnverifiedUsersRepository unverifiedUsersRepository;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final ArrayList<Patient> patients;
 
     public VerificationService(UnverifiedUsersRepository unverifiedUsersRepository,
-                               UserRepository userRepository) {
+                               UserRepository userRepository, RoleRepository roleRepository) {
         this.unverifiedUsersRepository = unverifiedUsersRepository;
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+
         patients = new MedicalInstitutionDatabaseImitation().getPatients();
     }
 
-    public String idVerificationRequest(IdVerificationRequestDto idVerificationRequestDto) {
+    public String verifyMedicalCardId(IdVerificationRequestDto idVerificationRequestDto) {
 
         for (Patient patient : patients) {
             String patientMedicalCardId = patient.getMedicalCardId();
@@ -41,12 +44,14 @@ public class VerificationService {
         return null;
     }
 
-    public void verifyEmail(String code) {
+    public Boolean verifyEmail(String code) {
         UnverifiedUser unverifiedUser = unverifiedUsersRepository.findByCode(code);
         if (unverifiedUser != null) {
             String medicalCardId = unverifiedUser.getMedicalCardId();
             for (Patient patient : patients) {
                 if (patient.getMedicalCardId().equals(medicalCardId)) {
+                    List<Role> roles = new ArrayList<>();
+                    roles.add(roleRepository.findByName("ROLE_USER"));
                     User user = User.builder()
                             .medicalCardId(patient.getMedicalCardId())
                             .email(patient.getEmail())
@@ -55,11 +60,15 @@ public class VerificationService {
                             .lastName(patient.getLastName())
                             .fatherName(patient.getFatherName())
                             .phoneNumber(patient.getPhoneNumber())
+                            .status(Status.ACTIVE)
+                            .roles(roles)
                             .build();
                     userRepository.save(user);
-                    unverifiedUsersRepository.deleteByMedicalCardId(unverifiedUser.getMedicalCardId());
+                    unverifiedUsersRepository.deleteByMedicalCardId(medicalCardId);
                 }
             }
+            return true;
         }
+        return false;
     }
 }

@@ -14,15 +14,17 @@ public class VerificationController {
         this.verificationService = verificationService;
     }
 
-    @PostMapping("/verify")
+    @PostMapping("/verify-patient-id")
     @ResponseBody
-    public String verificationRequest(@RequestBody IdVerificationRequestDto idVerificationRequestDto) {
-        return verificationService.idVerificationRequest(idVerificationRequestDto);
+    public String verifyMedicalCardId(@RequestBody IdVerificationRequestDto idVerificationRequestDto) {
+        return verificationService.verifyMedicalCardId(idVerificationRequestDto);
     }
 
     @GetMapping("/verify-email")
     public String verifyEmail(@RequestParam String code) {
-        verificationService.verifyEmail(code);
-        return "verification-page";
+        if (verificationService.verifyEmail(code))
+            return "verification-page";
+        else
+            return "email-verification-failure-page";
     }
 }

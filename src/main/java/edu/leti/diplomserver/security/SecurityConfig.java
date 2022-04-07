@@ -35,7 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider jwtTokenProvider;
 
     //private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
-    private static final String LOGIN_ENDPOINT = "/login";
 
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
@@ -55,7 +54,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(LOGIN_ENDPOINT).permitAll()
+                //регистрация нового пользователя
+                .antMatchers("/register").permitAll()
+                .antMatchers("/login").permitAll()//вход в аккаунт
+                //проверка наличия пациента с данным ID медицинской карты
+                .antMatchers("/verify-patient-id").permitAll()
+                //подтверждение личности пациента через e-mail
                 .antMatchers("/verify-email").permitAll()
                 //.antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .anyRequest().authenticated()

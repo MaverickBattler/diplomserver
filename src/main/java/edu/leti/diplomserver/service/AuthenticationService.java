@@ -13,9 +13,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @Service
 public class AuthenticationService {
 
@@ -31,7 +28,7 @@ public class AuthenticationService {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    public ResponseEntity authenticate(AuthenticationRequestDto authenticationRequestDto) {
+    public String authenticate(AuthenticationRequestDto authenticationRequestDto) {
         try {
             String email = authenticationRequestDto.getEmail();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email,
@@ -42,13 +39,7 @@ public class AuthenticationService {
                 throw new UsernameNotFoundException("User with email: " + email + " not found");
             }
 
-            String token = jwtTokenProvider.createToken(email, user.getRoles());
-
-            Map<Object, Object> response = new HashMap<>();
-            response.put("email", email);
-            response.put("token", token);
-
-            return ResponseEntity.ok(response);
+            return jwtTokenProvider.createToken(email, user.getRoles());
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }
