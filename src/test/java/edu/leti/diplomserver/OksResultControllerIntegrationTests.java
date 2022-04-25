@@ -1,9 +1,12 @@
 package edu.leti.diplomserver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.leti.diplomserver.domain.OKSResult;
+import edu.leti.diplomserver.domain.OksResult;
+import edu.leti.diplomserver.dto.OksResultDto;
+import edu.leti.diplomserver.repository.UserRepository;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
+import edu.leti.diplomserver.domain.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,32 +22,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ActiveProfiles("test")
 @SpringBootTest(classes = {DiplomserverApplication.class})
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @EnableWebMvc
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class OKSResultControllerIntegrationTests {
+public class OksResultControllerIntegrationTests {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Test
-    @Order(1)
-    public void addOKSResultTest() throws Exception {
+    public void addOksResultTest() throws Exception {
+        userRepository.save(User.builder()
+                .medicalCardId("dfasfdsfs")
+                .email("email@email.com").build());
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/oksResult")
-                .content(asJsonString(OKSResult.builder()
+                .content(asJsonString(OksResultDto.builder()
+                        .email("email@email.com")
                         .answer1((short) 1).answer2((short) 2).answer3((short) 3)
                         .answer4((short) 4).answer5((short) 5).answer6((short) 1)
                         .answer7((short) 2).answer8((short) 3).answer9((short) 4)
                         .answer10((short) 5).answer11((short) 1).answer12((short) 2).build()))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @Order(2)
-    public void deleteOKSResultTest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/oksResult/{id}", 1))
                 .andExpect(status().isOk());
     }
 

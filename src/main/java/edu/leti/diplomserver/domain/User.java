@@ -46,6 +46,7 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "medical_card_id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-
     private List<Role> roles;
+    @OneToMany(mappedBy = "user")
+    private List<OksResult> oksResults;
 }

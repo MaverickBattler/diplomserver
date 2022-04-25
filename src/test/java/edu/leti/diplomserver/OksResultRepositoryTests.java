@@ -1,7 +1,9 @@
 package edu.leti.diplomserver;
 
-import edu.leti.diplomserver.domain.OKSResult;
-import edu.leti.diplomserver.repository.OKSResultRepository;
+import edu.leti.diplomserver.domain.OksResult;
+import edu.leti.diplomserver.domain.User;
+import edu.leti.diplomserver.repository.OksResultRepository;
+import edu.leti.diplomserver.repository.UserRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,21 +18,28 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringBootTest(classes = {DiplomserverApplication.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class OKSResultRepositoryTests {
+public class OksResultRepositoryTests {
     @Autowired
-    OKSResultRepository oksResultRepository;
+    OksResultRepository oksResultRepository;
 
-    OKSResult oksResult1;
-    OKSResult oksResult2;
+    @Autowired
+    UserRepository userRepository;
+
+    OksResult oksResult1;
+    OksResult oksResult2;
 
     @BeforeAll
     public void setup() {
-        oksResult1 = OKSResult.builder()
+        User user = User.builder().medicalCardId("adfsafsadf").build();
+        userRepository.save(user);
+        oksResult1 = OksResult.builder()
+                .user(user)
                 .answer1((short) 1).answer2((short) 1).answer3((short) 1)
                 .answer4((short) 1).answer5((short) 1).answer6((short) 1)
                 .answer7((short) 1).answer8((short) 1).answer9((short) 1)
                 .answer10((short) 1).answer11((short) 1).answer12((short) 1).build();
-        oksResult2 = OKSResult.builder()
+        oksResult2 = OksResult.builder()
+                .user(user)
                 .answer1((short) 2).answer2((short) 2).answer3((short) 2)
                 .answer4((short) 2).answer5((short) 2).answer6((short) 2)
                 .answer7((short) 2).answer8((short) 2).answer9((short) 2)

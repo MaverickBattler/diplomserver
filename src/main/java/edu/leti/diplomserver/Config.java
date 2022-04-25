@@ -26,7 +26,9 @@ public class Config {
 
     @Bean
     public AuditorAware<String> auditorProvider() {
-        return () -> Optional.ofNullable(
-                SecurityContextHolder.getContext().getAuthentication().getName());
+        return () -> Optional.of(
+                SecurityContextHolder.getContext().getAuthentication() != null
+                        ? SecurityContextHolder.getContext().getAuthentication().getName()
+                        : "Unknown");
     }
 }

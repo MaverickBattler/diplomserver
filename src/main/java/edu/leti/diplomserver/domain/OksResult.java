@@ -1,8 +1,11 @@
 package edu.leti.diplomserver.domain;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -11,14 +14,19 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "oks_results")
-public class OKSResult {
-    //добавить patient_id
-    //настроить foreign_keys
+public class OksResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @ManyToOne
+    @JoinColumn(name = "medical_card_id", nullable = false)
+    private User user;
+    @CreatedDate
+    @Column(name = "completed")
+    private Date completed;
     @Column(name = "answer_1")
     private Short answer1;
     @Column(name = "answer_2")
