@@ -2,10 +2,8 @@ package edu.leti.diplomserver.service;
 
 import edu.leti.diplomserver.domain.User;
 import edu.leti.diplomserver.dto.AuthenticationRequestDto;
-import edu.leti.diplomserver.repository.UnverifiedUsersRepository;
 import edu.leti.diplomserver.repository.UserRepository;
 import edu.leti.diplomserver.security.JwtTokenProvider;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
