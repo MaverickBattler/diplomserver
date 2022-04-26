@@ -22,9 +22,9 @@ public class User {
     @Id
     @Column(name = "medical_card_id")
     private String medicalCardId;
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "first_name")
     private String firstName;
@@ -44,8 +44,8 @@ public class User {
     @Column(name = "status")
     private Status status;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "medical_card_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "medical_card_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)})
     private List<Role> roles;
     @OneToMany(mappedBy = "user")
     private List<OksResult> oksResults;

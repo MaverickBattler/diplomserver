@@ -16,11 +16,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "unverified_users")
 public class UnverifiedUser {
-    @Column(name = "medical_card_id")
+    @Column(name = "medical_card_id", nullable = false)
     String medicalCardId;
     @Id
     @Column(name = "code", unique = true)
     String code;
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     String password;
 }

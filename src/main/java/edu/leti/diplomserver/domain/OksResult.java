@@ -22,7 +22,7 @@ public class OksResult {
     @Column(name = "id")
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "medical_card_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
     @CreatedDate
     @Column(name = "completed")
