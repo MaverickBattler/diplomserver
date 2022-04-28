@@ -2,9 +2,12 @@ package edu.leti.diplomserver.service;
 
 import edu.leti.diplomserver.domain.UnverifiedUser;
 import edu.leti.diplomserver.domain.Patient;
+import edu.leti.diplomserver.domain.User;
 import edu.leti.diplomserver.dto.RegistrationRequestDto;
+import edu.leti.diplomserver.dto.UserDataDto;
 import edu.leti.diplomserver.repository.MedicalInstitutionDatabaseImitation;
 import edu.leti.diplomserver.repository.UnverifiedUsersRepository;
+import edu.leti.diplomserver.repository.UserRepository;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,17 +20,19 @@ import java.util.ArrayList;
 import java.util.Random;
 
 @Service
-public class UserRegistrationService {
+public class UserService {
 
     private final EmailService emailService;
     private final UnverifiedUsersRepository unverifiedUsersRepository;
+    private final UserRepository userRepository;
     ArrayList<Patient> patients;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserRegistrationService(EmailService emailService, UnverifiedUsersRepository unverifiedUsersRepository,
-                                   BCryptPasswordEncoder passwordEncoder) {
+    public UserService(EmailService emailService, UnverifiedUsersRepository unverifiedUsersRepository,
+                       BCryptPasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.emailService = emailService;
         this.unverifiedUsersRepository = unverifiedUsersRepository;
+        this.userRepository = userRepository;
         patients = new MedicalInstitutionDatabaseImitation().getPatients();
         this.passwordEncoder = passwordEncoder;
     }
@@ -67,5 +72,17 @@ public class UserRegistrationService {
             }
         }
         return patientEmail;
+    }
+
+    public UserDataDto getUserData(String email) {
+        User user = userRepository.findByEmail(email);
+        return UserDataDto.builder()
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .fatherName(user.getFatherName())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .medicalCardId(user.getMedicalCardId())
+                .build();
     }
 }

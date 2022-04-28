@@ -1,7 +1,6 @@
 package edu.leti.diplomserver.service;
 
 import edu.leti.diplomserver.domain.*;
-import edu.leti.diplomserver.dto.IdVerificationRequestDto;
 import edu.leti.diplomserver.repository.RoleRepository;
 import edu.leti.diplomserver.repository.UnverifiedUsersRepository;
 import edu.leti.diplomserver.repository.MedicalInstitutionDatabaseImitation;
@@ -28,11 +27,11 @@ public class VerificationService {
         patients = new MedicalInstitutionDatabaseImitation().getPatients();
     }
 
-    public String verifyMedicalCardId(IdVerificationRequestDto idVerificationRequestDto) {
+    public String verifyMedicalCardId(String medicalCardId) {
 
         for (Patient patient : patients) {
             String patientMedicalCardId = patient.getMedicalCardId();
-            if (patientMedicalCardId.equals(idVerificationRequestDto.getMedicalCardId())
+            if (patientMedicalCardId.equals(medicalCardId)
                     && patient.getOperationName().equals("Эндопротезирование коленного сустава")) {
                 if (userRepository.findById(patientMedicalCardId).isPresent())
                     //если пользователь уже зарегистрирован (есть в UserRepository)

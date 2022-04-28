@@ -1,7 +1,6 @@
 package edu.leti.diplomserver.controller;
 
 import edu.leti.diplomserver.service.VerificationService;
-import edu.leti.diplomserver.dto.IdVerificationRequestDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +15,8 @@ public class VerificationController {
 
     @PostMapping("/verify-patient-id")
     @ResponseBody
-    public String verifyMedicalCardId(@RequestBody IdVerificationRequestDto idVerificationRequestDto) {
-        return verificationService.verifyMedicalCardId(idVerificationRequestDto);
+    public String verifyMedicalCardId(@RequestBody String medicalCardId) {
+        return verificationService.verifyMedicalCardId(medicalCardId);
     }
 
     @GetMapping("/verify-email")
