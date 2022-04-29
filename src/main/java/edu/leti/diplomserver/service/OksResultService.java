@@ -7,6 +7,7 @@ import edu.leti.diplomserver.repository.OksResultRepository;
 import edu.leti.diplomserver.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,7 +24,7 @@ public class OksResultService {
         this.userRepository = userRepository;
     }
 
-    public OksResult addOksResult(OksResultDto oksResultDto) {
+    public Long addOksResult(OksResultDto oksResultDto) {
         User user = userRepository.findByEmail(oksResultDto.getEmail());
         OksResult oksResult = OksResult.builder()
                 .user(user)
@@ -39,7 +40,7 @@ public class OksResultService {
                 .answer10(oksResultDto.getAnswer10())
                 .answer11(oksResultDto.getAnswer11())
                 .answer12(oksResultDto.getAnswer12()).build();
-        return oksResultRepository.save(oksResult);
+        return oksResultRepository.save(oksResult).getCompleted().getTime();
     }
 
     public OksResult getOksResult(Long oksResultId) {

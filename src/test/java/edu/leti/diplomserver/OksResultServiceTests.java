@@ -4,6 +4,7 @@ import edu.leti.diplomserver.domain.OksResult;
 import edu.leti.diplomserver.domain.User;
 import edu.leti.diplomserver.dto.OksResultDto;
 import edu.leti.diplomserver.repository.OksResultRepository;
+import edu.leti.diplomserver.repository.UserRepository;
 import edu.leti.diplomserver.service.OksResultService;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
@@ -29,6 +30,9 @@ public class OksResultServiceTests {
 
     @MockBean
     private OksResultRepository oksResultRepository;
+
+    @MockBean
+    private UserRepository userRepository;
 
     @Autowired
     private OksResultService oksResultService;
@@ -96,6 +100,7 @@ public class OksResultServiceTests {
     @Test
     @Order(3)
     public void addOksResultTest() {
+        User user = new User();
         OksResultDto oksResultDto =
                 OksResultDto.builder()
                         .email("email2@mai.ru")
@@ -104,7 +109,7 @@ public class OksResultServiceTests {
                         .answer7((short) 4).answer8((short) 4).answer9((short) 4)
                         .answer10((short) 4).answer11((short) 4).answer12((short) 4).build();
         OksResult oksResult = OksResult.builder()
-                .user(new User())
+                .user(user)
                 .answer1(oksResultDto.getAnswer1())
                 .answer2(oksResultDto.getAnswer2())
                 .answer3(oksResultDto.getAnswer3())
@@ -119,10 +124,12 @@ public class OksResultServiceTests {
                 .answer12(oksResultDto.getAnswer12()).build();
         addedOksResults.add(oksResult);
 
+        when(userRepository.findByEmail(oksResultDto.getEmail()))
+                .thenReturn(user);
         when(oksResultRepository.save(oksResult))
                 .thenReturn(addedOksResults.get(addedOksResults.size() - 1));
-        when(oksResultRepository.getById(oksResult.getId()))
-                .thenReturn(addedOksResults.get(addedOksResults.size() - 1));
+        //when(oksResultRepository.getById(oksResult.getId()))
+        //        .thenReturn(addedOksResults.get(addedOksResults.size() - 1));
 
         oksResultService.addOksResult(oksResultDto);
 

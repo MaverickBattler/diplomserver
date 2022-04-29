@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "oks_results")
+@Table(name = "oks_result")
 public class OksResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

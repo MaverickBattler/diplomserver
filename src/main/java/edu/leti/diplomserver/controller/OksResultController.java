@@ -14,7 +14,7 @@ public class OksResultController {
     }
 
     @PostMapping("/oksResult")
-    public void addOksResult(@RequestBody OksResultDto oksResultDto) {
-        oksResultService.addOksResult(oksResultDto);
+    public Long addOksResult(@RequestBody OksResultDto oksResultDto) {
+        return oksResultService.addOksResult(oksResultDto);
     }
 }

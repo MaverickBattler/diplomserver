@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "users")
+@Table(name = "user")
 public class User {
     @Id
     @Column(name = "medical_card_id")
@@ -44,7 +44,7 @@ public class User {
     @Column(name = "status")
     private Status status;
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "medical_card_id", nullable = false)},
+    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "medical_card_id", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)})
     private List<Role> roles;
     @OneToMany(mappedBy = "user")

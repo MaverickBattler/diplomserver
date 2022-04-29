@@ -19,6 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import java.util.Date;
+
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -43,22 +45,7 @@ public class OksResultControllerTests {
                 .answer7((short) 2).answer8((short) 3).answer9((short) 4)
                 .answer10((short) 5).answer11((short) 1).answer12((short) 2).build();
 
-        OksResult oksResult = OksResult.builder()
-                .user(new User())
-                .answer1(oksResultDto.getAnswer1())
-                .answer2(oksResultDto.getAnswer2())
-                .answer3(oksResultDto.getAnswer3())
-                .answer4(oksResultDto.getAnswer4())
-                .answer5(oksResultDto.getAnswer5())
-                .answer6(oksResultDto.getAnswer6())
-                .answer7(oksResultDto.getAnswer7())
-                .answer8(oksResultDto.getAnswer8())
-                .answer9(oksResultDto.getAnswer9())
-                .answer10(oksResultDto.getAnswer10())
-                .answer11(oksResultDto.getAnswer11())
-                .answer12(oksResultDto.getAnswer12()).build();
-
-        when(oksResultService.addOksResult(oksResultDto)).thenReturn(oksResult);
+        when(oksResultService.addOksResult(oksResultDto)).thenReturn(1651161575925L);
 
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/oksResult")

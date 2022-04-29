@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "unverified_users")
+@Table(name = "unverified_user")
 public class UnverifiedUser {
     @Column(name = "medical_card_id", nullable = false)
     String medicalCardId;
