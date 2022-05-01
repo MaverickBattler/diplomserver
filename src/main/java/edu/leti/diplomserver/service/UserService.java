@@ -17,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
 
 @Service
@@ -76,6 +77,12 @@ public class UserService {
 
     public UserDataDto getUserData(String email) {
         User user = userRepository.findByEmail(email);
+        String doctorEmail = "";
+        for (Patient patient : patients) {
+            if (patient.getMedicalCardId().equals(user.getMedicalCardId())) {
+                doctorEmail = patient.getDoctorEmail();
+            }
+        }
         return UserDataDto.builder()
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
@@ -83,6 +90,7 @@ public class UserService {
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
                 .medicalCardId(user.getMedicalCardId())
+                .doctorEmail(doctorEmail)
                 .build();
     }
 }

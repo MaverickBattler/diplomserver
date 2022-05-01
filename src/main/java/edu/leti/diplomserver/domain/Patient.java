@@ -17,4 +17,5 @@ public class Patient {
     private String email;
     private String phoneNumber;
     private String operationName;
+    private String doctorEmail;
 }

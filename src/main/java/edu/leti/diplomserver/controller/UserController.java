@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 public class UserController {
 
@@ -26,4 +28,5 @@ public class UserController {
     public UserDataDto getUserData(@RequestBody String email) {
         return userService.getUserData(email);
     }
+
 }

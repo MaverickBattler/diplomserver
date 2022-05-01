@@ -15,4 +15,5 @@ public class UserDataDto {
     private String lastName;
     private String fatherName;
     private String phoneNumber;
+    private String doctorEmail;
 }
