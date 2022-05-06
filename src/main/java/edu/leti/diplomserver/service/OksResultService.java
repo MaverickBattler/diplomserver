@@ -7,7 +7,6 @@ import edu.leti.diplomserver.repository.OksResultRepository;
 import edu.leti.diplomserver.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
