@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.util.Date;
 
+//Данному классу соответствует таблица oks_result в БД
 @Setter
 @Getter
 @Builder
@@ -17,13 +18,16 @@ import java.util.Date;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "oks_result")
 public class OksResult {
+    //Первичный ключ, генерируется автоматически по порядку по возрастанию
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    //Внешний ключ user_id, ссылающийся на medical_card_id в таблице user
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+    //Столбец, в который автоматически записывается дата создания записи в таблице
     @CreatedDate
     @Column(name = "completed")
     private Date completed;

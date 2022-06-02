@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//Данному классу соответствует таблица unverified_user в БД
 @Setter
 @Getter
 @Builder

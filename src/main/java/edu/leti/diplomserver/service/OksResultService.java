@@ -7,8 +7,7 @@ import edu.leti.diplomserver.repository.OksResultRepository;
 import edu.leti.diplomserver.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
+//Сервис, в котором представлены методы, связанные с результатом заполнения OKS
 @Service
 public class OksResultService {
 
@@ -22,7 +21,7 @@ public class OksResultService {
         this.oksResultRepository = oksResultRepository;
         this.userRepository = userRepository;
     }
-
+    //Сохранить результат заполнения анкеты OKS в oksResultRepository
     public Long addOksResult(OksResultDto oksResultDto) {
         User user = userRepository.findByEmail(oksResultDto.getEmail());
         OksResult oksResult = OksResult.builder()
@@ -41,7 +40,7 @@ public class OksResultService {
                 .answer12(oksResultDto.getAnswer12()).build();
         return oksResultRepository.save(oksResult).getCompleted().getTime();
     }
-
+/*
     public OksResult getOksResult(Long oksResultId) {
         return oksResultRepository.getById(oksResultId);
     }
@@ -52,5 +51,5 @@ public class OksResultService {
 
     public void removeOksResult(Long oksResultId) {
         oksResultRepository.deleteById(oksResultId);
-    }
+    }*/
 }

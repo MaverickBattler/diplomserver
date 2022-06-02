@@ -14,6 +14,7 @@ import java.util.List;
 
 import static java.util.Calendar.getInstance;
 
+//Сервис, в котором представлены методы, связанные с выполнением тренировок
 @Service
 public class TrainingService {
 
@@ -30,14 +31,9 @@ public class TrainingService {
         this.userRepository = userRepository;
     }
 
+    //Сохранение отметки о выполнении одного из упражнений в trainingRepository
     public void addTraining(TrainingDto trainingDto) {
-        //Имеется дата lastOks
-        //Находим последнюю запись с тренировками для данного пользователя
-        //Смотрим на дату создания этой записи
-        //Получаем текущую дату
-        //Смотрим, в какой день после lastOks она попадает
-        //Получаем текущее время
-        //Если текущее время попадает в тот же день, значит запись с сегодняшними
+
         //Тренировками уже существует и необходимо добавить в нее
         //Иначе необходимо создать новую запись
         User user = userRepository.findByEmail(trainingDto.getEmail());
@@ -52,15 +48,20 @@ public class TrainingService {
                     lastTraining = training;
                 }
             }
+            //Получаем время создания этой записи
             long lastTrainingStart = lastTraining.getStarted().getTime();
+            //Имеется время последнего прохождения анкеты OKS lastOks
             Long lastOks = trainingDto.getLastOks();
             long dayStart;
             long dayEnd;
             Calendar calendar = getInstance();
+            //Получаем текущее время
             long currentTime = calendar.getTimeInMillis();
             for (int day = 0; day < 7; day++) {
                 dayStart = lastOks + day * DAY_IN_MILLIS;
                 dayEnd = dayStart + DAY_IN_MILLIS;
+                //Смотрим, в какой день после lastOks последняя запись попадает
+                //Если текущее время попадает в тот же день, значит запись с сегодняшними
                 if ((lastTrainingStart >= dayStart && lastTrainingStart < dayEnd)
                         && (currentTime >= dayStart && currentTime < dayEnd)) {
                     toUpdate = true;
@@ -68,10 +69,10 @@ public class TrainingService {
                 }
             }
         }
-
-        if (toUpdate) {
+        //Если запись идет в уже существующую запись
+        if (toUpdate) {//берется уже имеющаяся запись
             trainingToSave = lastTraining;
-        } else {
+        } else {//иначе создается новая запись
             trainingToSave = Training.builder()
                     .user(user)
                     .exercise1(false)
@@ -87,7 +88,7 @@ public class TrainingService {
                     .exercise11(false)
                     .exercise12(false)
                     .exercise13(false).build();
-        }
+        } //Устанавливаем отметку о выполнении нужной тренировки
         switch (trainingDto.getExerciseNumber()) {
             case 0:
                 trainingToSave.setExercise1(true);
@@ -128,10 +129,11 @@ public class TrainingService {
             case 12:
                 trainingToSave.setExercise13(true);
                 break;
-        }
+        }//сохранение в trainingRepository
         trainingRepository.save(trainingToSave);
     }
 
+    //Получение списка выполнения тренировок в течение недели после последнего заполнения OKS
     public List<List<Boolean>> getTrainings(TrainingsRequestDto trainingsRequestDto) {
         List<List<Boolean>> trainings = new ArrayList<>();
         Long lastOks = trainingsRequestDto.getLastOks();
@@ -141,15 +143,17 @@ public class TrainingService {
         calendarOks.setTimeInMillis(lastOks);
         if (lastOks != 0) { //Если пользователь проходил OKS раньше, то есть должен был выполнять тренировки
             if (!userTrainings.isEmpty()) { //Если он тренировался когда-то
-                boolean foundTrainingForTheDay;
+                boolean foundTrainingForTheDay; //Нашли ли тренировку для одного из 7 дней
                 for (int day = 0; day < 7; day++) { //0 to 6
                     foundTrainingForTheDay = false;
                     long dayStart = lastOks + day * DAY_IN_MILLIS;
                     long dayEnd = dayStart + DAY_IN_MILLIS;
+                    //Отметки о выполнении упражнений в текущий день
                     List<Boolean> trainingDay = new ArrayList<>();
 
-                    for (Training training : userTrainings) { //0 to n (amt of user trainings)
+                    for (Training training : userTrainings) { //От 0 до n (количество тренировок пользователя)
                         if (!foundTrainingForTheDay) {
+                            //Если тренировка выполнена в текущий день
                             if (training.getStarted().getTime() >= dayStart
                                     && training.getStarted().getTime() < dayEnd) {
                                 System.out.println("Добавляем тренировку с id " + training.getId());
@@ -173,7 +177,7 @@ public class TrainingService {
                         }
 
                     }
-                    //Если он не тренировался в этот день
+                    //Если он не тренировался в этот день, то создается запись со всеми невыполненными упражнениями
                     if (!foundTrainingForTheDay) {
                         for (int i = 0; i < 13; i++) {
                             trainingDay.add(false);
@@ -181,7 +185,8 @@ public class TrainingService {
                         trainings.add(trainingDay);
                     }
                 }
-            } else {
+            } else {//Если пользователь не тренировался ни разу
+                //Весь двумерный массив заполняется false
                 for (int day = 0; day < 7; day++) { //0 to 6
                     ArrayList<Boolean> trainingDay = new ArrayList<>();
                     for (int i = 0; i < 13; i++) {
@@ -190,8 +195,9 @@ public class TrainingService {
                     trainings.add(trainingDay);
                 }
             }
-
+            //Возвращается двумерный массив с отметками о тренировках за неделю
             return trainings;
+            //Иначе возвращается пустой массив
         } else return new ArrayList<>();
     }
 }

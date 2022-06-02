@@ -12,8 +12,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenProvider jwtTokenProvider;
 
-    //private static final String ADMIN_ENDPOINT = "/api/v1/admin/**";
-
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
     }
@@ -23,25 +21,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
+    //Конфигурация безопасности сети
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http    //Отключение Basic Authentication
                 .httpBasic().disable()
+                //Отключение защиты от CSRF
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                //Настройка необходимости аутентификации запросов
                 .authorizeRequests()
-                //регистрация нового пользователя
+                //Регистрация нового пользователя
                 .antMatchers("/register").permitAll()
-                .antMatchers("/login").permitAll()//вход в аккаунт
-                //проверка наличия пациента с данным ID медицинской карты
+                //Вход в аккаунт
+                .antMatchers("/login").permitAll()
+                //Проверка наличия пациента с данным ID медицинской карты
                 .antMatchers("/verify-patient-id").permitAll()
-                //подтверждение личности пациента через e-mail
+                //Подтверждение личности пациента через e-mail
                 .antMatchers("/verify-email").permitAll()
-                //.antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
+                //Остальные запросы должны быть аутентифицированы
                 .anyRequest().authenticated()
                 .and()
+                //Установка JwtConfigurer
                 .apply(new JwtConfigurer(jwtTokenProvider));
     }
 }

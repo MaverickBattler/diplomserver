@@ -2,13 +2,13 @@ package edu.leti.diplomserver.domain;
 
 import lombok.*;
 
+//Имитация таблицы с данными о пациенте, хранящейся в базе данных медицинского учреждения
 @Setter
 @Getter
 @Builder
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-//Имитация данных о пациенте, хранящихся в базе данных медицинского учреждения
 public class Patient {
     private String medicalCardId;
     private String firstName;

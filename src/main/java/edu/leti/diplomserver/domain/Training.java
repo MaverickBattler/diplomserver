@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.util.Date;
 
+//Данному классу соответствует таблица training в БД
 @Setter
 @Getter
 @Builder
@@ -22,6 +23,7 @@ public class Training {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    //Внешний ключ user_id, ссылающийся на medical_card_id в таблице user
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

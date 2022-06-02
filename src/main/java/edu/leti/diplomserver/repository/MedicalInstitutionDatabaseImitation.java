@@ -2,9 +2,9 @@ package edu.leti.diplomserver.repository;
 
 import edu.leti.diplomserver.domain.Patient;
 import lombok.Getter;
-
 import java.util.ArrayList;
 
+//Класс, конструктор которого возвращает "базу данных" медицинского учреждения
 public class MedicalInstitutionDatabaseImitation {
 
     @Getter
