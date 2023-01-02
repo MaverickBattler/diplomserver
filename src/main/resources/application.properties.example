@@ -1,0 +1,28 @@
+server.port=8080
+
+#database
+spring.jpa.database=POSTGRESQL
+spring.sql.init.platform=postgres
+spring.datasource.url=datasourceurl
+spring.datasource.username=username
+spring.datasource.password=password
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.show-sql=true
+spring.jpa.generate-ddl=true
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+spring.jpa.hibernate.ddl-auto = update
+
+#mail
+spring.mail.host=smtp.gmail.com
+spring.mail.port=777
+spring.mail.username=username@username.com
+spring.mail.password=mailpassword
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+
+spring.jpa.open-in-view=true
+spring.main.allow-bean-definition-overriding=true
+
+jwt.token.secret = jwtsecret
+#expiration in 365 days
+jwt.token.expired = 31536000000
