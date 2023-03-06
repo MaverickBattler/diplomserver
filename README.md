@@ -1,6 +1,12 @@
 # Server for the KneeApp
-Server part of the final qualifying work (Diploma)
+Серверная часть приложения KneeApp (можно найти на моем GitHub), которое было разработано как выпускная квалификационная работа бакалавра.
 
-The server is supposed to save data of a test sent from a mobile application in a PostgreSQL table and do other work for application related to database.
+Серверная часть предназначена для сохранения данных пользователя в базе данных, реализации регистрации в приложении, подтверждения электронной почты.
 
-Written with Spring Boot
+Написано на языке Java с использованием фреймворка Spring Boot.
+
+В базе данных приложения хранятся:
+- Личные данные пользователя
+- Роль пользователя (администратор или пользователь)
+- Данные о ежедневных тренировках пользователя
+- Данные о еженедельном заполнении анкеты Oxford Knee Score
